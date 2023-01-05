@@ -10,8 +10,8 @@
         <!-- Submission form text box -->
         <form class='comments' method="POST">
             {{ template_form.hidden_tag() }}
-            <p class="comments">{{ template_form.comment.label }}
-            {{ template_form.comment(size=48) }}</p>
+            <h3 class="comments">{{ template_form.comment.label }}</h3>
+            <p class="comments">{{ template_form.comment(size=48) }}</p>
             <p class="comments">{{ template_form.submit() }}</p>
         </form>
 

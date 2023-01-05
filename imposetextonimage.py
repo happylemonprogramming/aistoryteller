@@ -20,7 +20,7 @@ def imposetextonimage(text,imagepath,path,name):
 
     # Set the font and size
     size = 36
-    font = ImageFont.truetype('calibri.ttf', size)
+    font = ImageFont.truetype('arial.ttf', size)
 
     # Set the text and position
     x, y = 10, 750
