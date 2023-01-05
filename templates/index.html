@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="general">
+        <h1>AI Story Teller</h1>
+        <!-- Submission form text box -->
+        <form class='comments' method="POST">
+            {{ template_form.hidden_tag() }}
+            <p class="comments">{{ template_form.comment.label }}
+            {{ template_form.comment(size=48) }}</p>
+            <p class="comments">{{ template_form.submit() }}</p>
+        </form>
+
+        {% for comment in template_comments %}
+        <video width="750" height="750" controls>
+            <source src="{{ url_for('static', filename='movie/movie.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        {% endfor %}
+
+        <p>&copy; Happy Lemon Programming</p>
+    </div>
+
+  </body>
+</html>
