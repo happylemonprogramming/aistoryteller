@@ -1,6 +1,5 @@
 import requests
 from PIL import Image
-from pathlib import Path
 
 def saveimagetodir(url,path,name):
     # url = 'https://hyperlink.com'
