@@ -54,7 +54,6 @@ jupyter-client==7.1.2
 jupyter-core==4.9.2
 keyring==23.2.1
 kiwisolver==1.3.2
-lnpay-py==0.1.0
 lxml==4.6.4
 MarkupSafe==2.1.0
 matplotlib==3.5.0
