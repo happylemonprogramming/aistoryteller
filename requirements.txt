@@ -17,7 +17,7 @@ MarkupSafe==2.1.1
 moviepy==1.0.3
 numpy==1.24.1
 openai==0.25.0
-opencv-python==4.7.0.68
+opencv-python-headless==4.7.0.68
 openpyxl==3.0.10
 pandas==1.5.2
 pandas-stubs==1.5.2.221213
