@@ -2,6 +2,7 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 import textwrap
+import os
 
 # Function to add text to an image
 def imposetextonimage(text,imagepath,path,name):
@@ -20,7 +21,18 @@ def imposetextonimage(text,imagepath,path,name):
 
     # Set the font and size
     size = 36
-    font = ImageFont.truetype('calibri.ttf', size)
+
+    # Confirm that directories have been set up, if not then create them
+    # Check if the directory exists
+    if not os.path.exists('Fonts'):
+        # Create the directory
+        os.makedirs('Fonts')
+
+    # Set file paths relative to current directory
+    current_dir = os.getcwd()
+    font_path = os.path.join(current_dir, 'Fonts/calibri.ttf')
+
+    font = ImageFont.truetype(font_path, size)
 
     # Set the text and position
     x, y = 10, 750
