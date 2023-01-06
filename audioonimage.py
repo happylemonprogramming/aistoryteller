@@ -1,10 +1,13 @@
 import cv2
+# # alternative to cv2 because I cant get it to work on heroku
+# import imageio
 from moviepy.editor import VideoFileClip, AudioFileClip
 
 # Function to turn an image .png into a video .mov by repeating frames
 def imagetovideo(imagepath,vidpath,name):
     # Read the image file
     image = cv2.imread(imagepath)
+    # image = imageio.imread(imagepath)
 
     # Check if image was successfully read
     if image is None:
@@ -18,6 +21,12 @@ def imagetovideo(imagepath,vidpath,name):
         30,
         (image.shape[1], image.shape[0])
         )
+
+
+
+    # def create_video(image, name, vidpath):
+    # output=imageio.imwrite(str(vidpath)+str(name)+'.mov', image, fps=30)
+
 
     # Write the image to the video file
     output.write(image)
