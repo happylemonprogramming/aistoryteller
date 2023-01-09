@@ -44,7 +44,7 @@ def storyteller():
     prompt = comment_form.comment.data
 
     # # Won't work because windows/needs ubuntu... MIGHT WORK ON HEROKU
-    # subprocess.call(['python', 'worker.py'])
+    subprocess.call(['python', 'worker.py'])
 
     # Background job for creating the story
     job = q.enqueue(aistorytelling, prompt)
@@ -53,10 +53,10 @@ def storyteller():
     # q_len = len(q)
     # print(q_len)
 
-    # untested MIGHT WORK ON HEROKU
-    with Connection():
-      worker = Worker(q)
-      worker.work()
+    # # untested MIGHT WORK ON HEROKU
+    # with Connection():
+    #   worker = Worker(q)
+    #   worker.work()
 
     # If comment generated then, post video
     comments.append(prompt)
