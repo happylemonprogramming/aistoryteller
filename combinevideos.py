@@ -2,7 +2,7 @@ from moviepy.editor import *
 import os
 
 # Function to combine scenes or clips together into on film or movie
-def combinevideos(scenepath,storyvideopath):
+def combinevideos(scenepath,storyvideopath,name):
     # List of scenes
     sceneslist = [scene for scene in os.listdir(scenepath) if scene.endswith('.mp4')]
     
@@ -13,5 +13,5 @@ def combinevideos(scenepath,storyvideopath):
 
     # Concatenate the video clips
     final_clip = concatenate_videoclips(video_clips)
-    # Save the final clip
-    final_clip.write_videofile(str(storyvideopath)+"movie.mp4")
+    # Save the final clip with the first 30 characters of the prompt submission 
+    final_clip.write_videofile(str(storyvideopath)+str(name[:30])+".mp4")

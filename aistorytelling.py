@@ -79,7 +79,7 @@ def aistorytelling(prompt):
 
     # Stitch it all together into a single file
     from combinevideos import combinevideos
-    combinevideos(scenepath,storyvideopath)
+    combinevideos(scenepath,storyvideopath,prompt)
 
     # Delete all files that are not the movie to save space
     from filecleanup import delete_files
