@@ -1,11 +1,12 @@
-import os
+# import os
 from rq import Worker, Queue, Connection
 import redis
+from aistorytelling import aistorytelling
 
 # Background app running
 from rq import Queue, Worker, Connection
-import subprocess
-import random
+# import subprocess
+# import random
 import redis
 
 r = redis.Redis(
@@ -14,15 +15,20 @@ r = redis.Redis(
   password='SQr6LnwBbwNWkdZSSfTksNw1BAzZBQgR')
 # r = redis.Redis(host='localhost', port=6379, db=0)
 q = Queue(connection=r)
-
-
 listen = ['default']
 
 # redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
 
 # conn = redis.from_url(redis_url)
 
+# Hopefully is passed variable of prompt
+import sys
+prompt = sys.argv[1]
+print(prompt)
+
+# Worker doin' work
 if __name__ == '__main__':
     with Connection(r):
         worker = Worker(listen)
         worker.work()
+        q.enqueue(aistorytelling, prompt)

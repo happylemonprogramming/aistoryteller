@@ -8,17 +8,17 @@ from forms import CommentForm
 import os
 
 # Background app running
-from rq import Queue, Worker, Connection
 import subprocess
 import random
-import redis
+# import redis
+# from rq import Queue, Worker, Connection
 
-r = redis.Redis(
-  host='redis-15847.c258.us-east-1-4.ec2.cloud.redislabs.com',
-  port=15847,
-  password='SQr6LnwBbwNWkdZSSfTksNw1BAzZBQgR')
+# r = redis.Redis(
+#   host='redis-15847.c258.us-east-1-4.ec2.cloud.redislabs.com',
+#   port=15847,
+#   password='SQr6LnwBbwNWkdZSSfTksNw1BAzZBQgR')
 # r = redis.Redis(host='localhost', port=6379, db=0)
-q = Queue(connection=r)
+# q = Queue(connection=r)
 
 # Flask convention and key to avoid CSRF attacks
 app = Flask(__name__)
@@ -42,12 +42,15 @@ def storyteller():
   if comment_form.validate_on_submit():
     # Add text memo to notification screen of Strike invoice
     prompt = comment_form.comment.data
+    # If comment generated then, post video
+    comments.append(prompt)
+    videourl = url_for('static', filename=f'movie/{prompt[:30]}.mp4')
 
     # # Won't work because windows/needs ubuntu... MIGHT WORK ON HEROKU
-    subprocess.call(['python', 'worker.py'])
+    subprocess.call(['python', 'worker.py', prompt])
 
     # Background job for creating the story
-    job = q.enqueue(aistorytelling, prompt)
+    # job = q.enqueue(aistorytelling, prompt)
     # from delay import delay
     # job = q.enqueue(delay)
     # q_len = len(q)
@@ -57,10 +60,6 @@ def storyteller():
     # with Connection():
     #   worker = Worker(q)
     #   worker.work()
-
-    # If comment generated then, post video
-    comments.append(prompt)
-    videourl = url_for('static', filename=f'movie/{prompt[:30]}.mp4')
 
   # return f"Task {job.id} added to queue at {job.enqueued_at}. {q_len} tasks in queue."
   return render_template('index.html', template_comments=comments, template_form=comment_form,videourl=videourl, randomurl=randomurl)
