@@ -8,11 +8,16 @@ from forms import CommentForm
 import os
 
 # Background app running
-import redis
 from rq import Queue, Worker, Connection
 import subprocess
 import random
-r = redis.Redis(host='localhost', port=6379, db=0)
+import redis
+
+r = redis.Redis(
+  host='redis-15847.c258.us-east-1-4.ec2.cloud.redislabs.com',
+  port=15847,
+  password='SQr6LnwBbwNWkdZSSfTksNw1BAzZBQgR')
+# r = redis.Redis(host='localhost', port=6379, db=0)
 q = Queue(connection=r)
 
 # Flask convention and key to avoid CSRF attacks
