@@ -16,7 +16,7 @@ aistorytelling.py is the workhorse that:
   -combines all video scenes for each story section into a single larger video about 1-minute in length (combinevideos.py)
   -then deletes all files that aren't the main story video (filecleanup.py)
   
- Procfile is to define webapp and worker for Heroku
- requirements.txt is pip freeze of the virtual environment
- delay.py is solely for testing purposes
+Procfile is to define webapp and worker for Heroku
+requirements.txt is pip freeze of the virtual environment
+delay.py is solely for testing purposes
 
