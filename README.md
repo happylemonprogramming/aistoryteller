@@ -1,7 +1,7 @@
 # aistoryteller
 AI-powered webapp that creates short stories for kids
 
-webapp.py is the Flask app that calls index.html and passes the user input from HTTP POST to worker.py through the use of forms.py
+webapp.py is the Flask app that calls index.html and passes the user input from HTTP POST to worker.py through the use of forms.py/n
 worker.py queues aistorystelling
 aistorytelling.py is the workhorse that:
   -creates working directories for temporary file storage
