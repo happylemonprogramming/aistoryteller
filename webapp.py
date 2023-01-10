@@ -40,7 +40,6 @@ def storyteller():
     comments.append(prompt)
     videourl = url_for('static', filename=f'movie/{prompt[:30]}.mp4')
 
-    # # Won't work because windows/needs ubuntu... MIGHT WORK ON HEROKU
     # # Maybe do pyinstaller instead to create an actual app instead of webapp
     # subprocess.call(['python', 'worker.py', prompt])
 
