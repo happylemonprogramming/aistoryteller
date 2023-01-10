@@ -10,19 +10,13 @@ import os
 # Background app running
 import subprocess
 import random
-# import redis
-# from rq import Queue, Worker, Connection
-
-# r = redis.Redis(
-#   host='redis-15847.c258.us-east-1-4.ec2.cloud.redislabs.com',
-#   port=15847,
-#   password='SQr6LnwBbwNWkdZSSfTksNw1BAzZBQgR')
-# r = redis.Redis(host='localhost', port=6379, db=0)
-# q = Queue(connection=r)
+import redis
+from rq import Queue, Worker, Connection
+r = redis.Redis(host='localhost', port=6379, db=0)
+q = Queue(connection=r)
 
 # Flask convention and key to avoid CSRF attacks
 app = Flask(__name__)
-# app.config["SECRET_KEY"] = "mysecret"
 app.secret_key = os.environ["flasksecret"]
 
 # Route for AI generated tweet and image generation
@@ -36,7 +30,7 @@ def storyteller():
   randomfile = random.choice(os.listdir('static/movie'))
   randomurl = url_for('static', filename=f'movie/{randomfile}')
 
-  # Set variable temporarily utnil prompt submitted
+  # Set variable temporarily until prompt submitted
   videourl = randomurl
 
   if comment_form.validate_on_submit():
@@ -47,21 +41,15 @@ def storyteller():
     videourl = url_for('static', filename=f'movie/{prompt[:30]}.mp4')
 
     # # Won't work because windows/needs ubuntu... MIGHT WORK ON HEROKU
-    subprocess.call(['python', 'worker.py', prompt])
+    # # Maybe do pyinstaller instead to create an actual app instead of webapp
+    # subprocess.call(['python', 'worker.py', prompt])
 
-    # Background job for creating the story
+    # # Background job for creating the story
     # job = q.enqueue(aistorytelling, prompt)
+    # # For testing functionality and avoiding charges
     # from delay import delay
     # job = q.enqueue(delay)
-    # q_len = len(q)
-    # print(q_len)
 
-    # # untested MIGHT WORK ON HEROKU
-    # with Connection():
-    #   worker = Worker(q)
-    #   worker.work()
-
-  # return f"Task {job.id} added to queue at {job.enqueued_at}. {q_len} tasks in queue."
   return render_template('index.html', template_comments=comments, template_form=comment_form,videourl=videourl, randomurl=randomurl)
 
 # Run app on server (must be at end of code)
