@@ -1,7 +1,7 @@
 # aistoryteller
 AI-powered webapp that creates short stories for kids
 
-webapp.py is the Flask app that calls index.html and passes the user input from HTTP POST to worker.py through the use of forms.py/n
+<p>webapp.py is the Flask app that calls index.html and passes the user input from HTTP POST to worker.py through the use of forms.py
 worker.py queues aistorystelling
 aistorytelling.py is the workhorse that:
   -creates working directories for temporary file storage
@@ -20,3 +20,4 @@ Procfile is to define webapp and worker for Heroku
 requirements.txt is pip freeze of the virtual environment
 delay.py is solely for testing purposes
 
+</p>
