@@ -53,4 +53,4 @@ def storyteller():
 
 # Run app on server (must be at end of code)
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5500, debug=True, threaded=True) #Change host back to 0.0.0.0, if needed
+    app.run(host='0.0.0.0', port=5500, debug=True, threaded=True) # Change host, if needed
