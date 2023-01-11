@@ -37,11 +37,6 @@
           var userText = document.getElementById("userText")
           var videourls = "{{ videourl }}"
           var randomurls = "{{ randomurl }}"
-
-          // Logging for testing purpose (can be deleted)
-          console.log('Started Script')
-          console.log(videourls)
-          console.log(randomurls)
           
           // Function that starts when video ends
           video.addEventListener("ended", function() {
@@ -50,6 +45,7 @@
             xhr.onload = function() {
               if (xhr.status === 200) {
                 // The new video file exists, so replace the random video
+                userText.textContent = "Your video is ready!"
                 video.src = "{{ videourl }}";
               } else {
                 // The new video file does not exist, so wait 5 seconds before checking again

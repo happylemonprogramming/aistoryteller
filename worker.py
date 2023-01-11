@@ -6,26 +6,27 @@ from rq import Queue, Worker, Connection
 import redis
 import os
 
+listen = ["default"]
 # Redis server from Heroku Add-on
-r = redis.Redis(
-  host='redis-15847.c258.us-east-1-4.ec2.cloud.redislabs.com',
-  port=15847,
-  password = os.environ["redisapikey"])
+# conn = redis.Redis(
+#   host='redis-15847.c258.us-east-1-4.ec2.cloud.redislabs.com',
+#   port=15847,
+#   password = os.environ["redisapikey"])
 # # Localhost Redis server using wsl
-# r = redis.Redis(host='localhost', port=6379, db=0)
+conn = redis.Redis(host='localhost', port=6379, db=0)
+# listen = ['high','default','low']
 # redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
 # conn = redis.from_url(redis_url)
-q = Queue(connection=r)
-listen = ['default']
+# q = Queue(connection=conn)
 
 # Variable 'prompt' passed from webapp (user input on index.html)
-import sys
-prompt = sys.argv[1]
-print(prompt)
+# import sys
+# prompt = sys.argv[1]
+# print(prompt)
 
 # Worker doin' work
 if __name__ == '__main__':
-    with Connection(r):
+    with Connection(conn):
         worker = Worker(listen)
+        # worker = Worker(map(Queue, listen))
         worker.work()
-        q.enqueue(aistorytelling, prompt)
