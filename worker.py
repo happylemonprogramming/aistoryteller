@@ -8,12 +8,12 @@ import os
 
 listen = ["default"]
 # Redis server from Heroku Add-on
-# conn = redis.Redis(
-#   host='redis-15847.c258.us-east-1-4.ec2.cloud.redislabs.com',
-#   port=15847,
-#   password = os.environ["redisapikey"])
+conn = redis.Redis(
+  host='redis-15847.c258.us-east-1-4.ec2.cloud.redislabs.com',
+  port=15847,
+  password = os.environ["redisapikey"])
 # # Localhost Redis server using wsl
-conn = redis.Redis(host='localhost', port=6379, db=0)
+# conn = redis.Redis(host='localhost', port=6379, db=0)
 # listen = ['high','default','low']
 # redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
 # conn = redis.from_url(redis_url)
