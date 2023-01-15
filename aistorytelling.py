@@ -69,7 +69,7 @@ def aistorytelling(prompt):
             # Stop the app early so we don't go broke
             i+=1
             print('Sucessfully Completed Scenes: '+str(i))
-            if i == 2:
+            if i == 3:
                 break
 
     else:
