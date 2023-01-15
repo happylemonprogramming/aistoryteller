@@ -48,13 +48,13 @@ def aistorytelling(prompt):
 
         # Create image for each section of the story
         for sections in storysections:
-            # Gotta be a more efficient way to do this (I'm calling the API to make a key words list, which costs more money)
-            keywords = textgenerator('List the key words in order separated by commas in the following text: '+sections)[0]
-
             # Create story images
             from texttoimage import text_to_image
-            # Gotta be another input that won't leave that weird text, maybe user can select style (radio buttons?)
-            imageinput = "Cartoon storybook painting about: " + str(prompt) + ', ' + str(keywords[2:])
+            # # Gotta be another input that won't leave that weird text, maybe user can select style (radio buttons?)
+            # # Gotta be a more efficient way to do this (I'm calling the API to make a key words list, which costs more money)
+            # keywords = textgenerator('List the key words in order separated by commas in the following text: '+sections)[0]
+            # imageinput = "Cartoon storybook painting about: " + str(prompt) + ', ' + str(keywords[2:])
+            imageinput = "Given this context: " + str(prompt) + ', create a cartoon book image about this story' + str(sections)
             storyimagelink = text_to_image(imageinput)[0]
             print("Image Created")
             # # Alternative image generator
@@ -69,8 +69,8 @@ def aistorytelling(prompt):
             # Stop the app early so we don't go broke
             i+=1
             print('Sucessfully Completed Scenes: '+str(i))
-            # if i == 1:
-            #     break
+            if i == 2:
+                break
 
     else:
         # Change to the appropriate directory
