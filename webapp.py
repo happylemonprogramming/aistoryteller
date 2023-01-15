@@ -1,18 +1,12 @@
 # AI powered webapp that creates storybook videos
 # Other Python files and functions
-from aistorytelling import aistorytelling
+from aistorytelling import *
+import json
 
 # Web Server Library
 from flask import Flask, render_template, request, url_for
 from forms import CommentForm
 import os
-
-# Background app running
-import random
-from rq import Queue
-from worker import conn
-q = Queue(connection=conn)
-
 
 # Flask convention and key to avoid CSRF attacks
 app = Flask(__name__)
@@ -25,28 +19,39 @@ def storyteller():
   comments = []
   comment_form = CommentForm(csrf_enabled=False)
 
-  # Select random file from library of videos
-  randomfile = random.choice(os.listdir('static/movie'))
-  randomurl = url_for('static', filename=f'movie/{randomfile}')
-
-  # Set variable temporarily until prompt submitted
-  videourl = randomurl
+  # Placeholder values prior to content submission
+  storysections = 'Pending submission'
+  imagepathlist = 'Pending submission'
+  firstimage = 'Pending submission'
+  nextimageslist=[]
+  i=0
 
   if comment_form.validate_on_submit():
     # Add text memo to notification screen of Strike invoice
     prompt = comment_form.comment.data
+
+    # Create story content
+    functionreturn= aistorytelling(prompt)
+    storysections = functionreturn[0]
+    imagepathlist = functionreturn[2]
+    # Might be able to use a worker file for the images so that the first image generates and goes to the user without waiting on the rest
+
+    # Iterate over images in path to create file URL for Javascript to parse
+    for file in imagepathlist:
+      nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
+      i=i+1
+    firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
+
     # If comment generated then, post video
-    comments.append(prompt)
-    videourl = url_for('static', filename=f'movie/{prompt[:30]}.mp4')
-
-    # # Background job for creating the story
-    q.enqueue(aistorytelling, prompt)
-
-    # # For testing functionality and avoiding charges
+    # comments.append(prompt)
+    # For testing functionality and avoiding charges
     # from delay import delay
-    # job = q.enqueue(delay)
+    # delay()
 
-  return render_template('index.html', template_comments=comments, template_form=comment_form,videourl=videourl, randomurl=randomurl)
+    # Story webpage
+    return render_template('story.html', storysections=storysections, firstimage=firstimage, nextimageslist=nextimageslist)
+  # Home landing page
+  return render_template('index.html', template_comments=comments, template_form=comment_form)
 
 # Run app on server (must be at end of code)
 if __name__ == '__main__':

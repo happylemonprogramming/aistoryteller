@@ -9,7 +9,8 @@ def text_to_image(user_prompt):
   response = openai.Image.create(
     prompt=user_prompt,
     n=1,
-    size="1024x1024"
+    # 256X256, 512X512, 1024X1024
+    size="256x256"
   )
   cost = 0.02
   

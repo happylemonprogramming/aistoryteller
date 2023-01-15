@@ -9,59 +9,17 @@
   <body>
     <div class="general">
         <!-- Title -->
-        <h1>AI Story Teller</h1>
+        <h1>AI-Pedia</h1>
         <!-- Submission form text box -->
         <form class='comments' method="POST">
             {{ template_form.hidden_tag() }}
             <!-- Write a story... text -->
             <h3 class="comments">{{ template_form.comment.label }}</h3>
             <!-- Text box -->
-            <p class="comments">{{ template_form.comment(size=48) }}</p>
+            <p class="comments">{{ template_form.comment(size=50) }}</p>
             <!-- Submit button -->
             <p class="comments">{{ template_form.submit() }}</p>
         </form>
-
-        {% for comment in template_comments %}
-          <!-- Text displayed over video after submission -->
-          <p id="userText">Here's a video from our library (instead of an ad) while your video is loading in the background...</p>
-          <!-- Random video from libary unless script run completes -->
-          <video id="userVideo" width="750" height="750" controls>
-            <source src="{{ randomurl }}" type="video/mp4">
-            <!-- Text only shows if browser doesn't support type -->
-            Your browser does not support the video tag.
-          </video>
-        
-        <!-- Javascript to change video source when fully compiled -->
-        <script>
-          var video = document.getElementById("userVideo");
-          var userText = document.getElementById("userText")
-          var videourls = "{{ videourl }}"
-          var randomurls = "{{ randomurl }}"
-          
-          // Function that starts when video ends
-          video.addEventListener("ended", function() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("HEAD", "{{ videourl }}");
-            xhr.onload = function() {
-              if (xhr.status === 200) {
-                // The new video file exists, so replace the random video
-                userText.textContent = "Your video is ready!"
-                video.src = "{{ videourl }}";
-              } else {
-                // The new video file does not exist, so wait 5 seconds before checking again
-                // Can only be checked again by finishing the video again
-                setTimeout(function() {
-                  video.src = "{{ randomurl }}";
-                }, 5000);
-              }
-            };
-            xhr.send();
-          });
-        </script>
-        {% endfor %}
-        
-        <p>&copy; Happy Lemon Programming</p>
     </div>
-
   </body>
 </html>

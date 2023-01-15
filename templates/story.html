@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Link to Roboto font for css -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
+    <!-- Link to css file for styling -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div id="storycontainer">
+        <!-- Invisible buttons to create instagram story feel -->
+        <div id="buttoncontainer">
+          <button id="prev-btn" onclick="prevSlide()"></button>
+          <button id="next-btn" onclick="nextSlide()"></button>
+        </div>
+        <!-- Story image displayed after submission -->
+          <img id="current-slide" src="{{ firstimage }}" width="100%" height="auto">
+      </div>
+      <!-- Text displayed below image after submission -->
+      <div id="storytext">
+        <h1 id="userText">{{ storysections[0] }}</h1>
+      </div>
+    </div>
+  </body>
+  <script>
+    // Python variable imported as string, need to convert to list (array)
+    var slidesjson = '{{ nextimageslist|tojson|safe }}';
+    let slidesarray = JSON.parse(slidesjson)
+    var storysectionsjson = '{{ storysections|tojson|safe }}'
+    let storysectionsarray = JSON.parse(storysectionsjson)
+    var currentSlide = 0;
+
+    // Function for next page (loops through)
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slidesarray.length;
+      document.getElementById('current-slide').src = slidesarray[currentSlide];
+      document.getElementById('userText').textContent = storysectionsarray[currentSlide];
+    }
+    // Function for previous page (loops through)
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slidesarray.length) % slidesarray.length;
+      document.getElementById('current-slide').src = slidesarray[currentSlide];
+      document.getElementById('userText').textContent = storysectionsarray[currentSlide];
+    }
+
+  </script>
+</html>
