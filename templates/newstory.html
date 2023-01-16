@@ -7,7 +7,7 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
   </head>
   <body>
-    <div id="container" style="visibility: visible;">
+    <div id="container">
       <div id="storycontainer">
         <!-- Invisible buttons to create instagram story feel -->
         <div id="buttoncontainer">
@@ -19,52 +19,27 @@
       </div>
       <!-- Text displayed below image after submission -->
       <div id="storytext">
-        <h1 id="userText">{{ storysections[0] }}</h1>
+        <h1 id="userText">{{ firststory }}</h1>
       </div>
-    </div>
-    <div id="whatnext" style="visibility: visible;">
-        <!-- Title -->
-        <h1>What happens next?</h1>
-        <!-- Submission form radio buttons -->
-        <form class='radio' method="POST">
-            {{ template_form.hidden_tag() }}
-            <!-- What next... text -->
-            <h3 class="radio">{{ template_form.radio.label }}</h3>
-            <!-- Buttons -->
-            <ul id='radiobuttons' class="radio">{{ template_form.radio }}</ul>
-            <!-- Submit button -->
-            <p class="radio">{{ template_form.enter() }}</p>
-        </form>
     </div>
   </body>
   <script>
     // Python variable imported as string, need to convert to list (array)
     var slidesjson = '{{ nextimageslist|tojson|safe }}';
     let slidesarray = JSON.parse(slidesjson)
-    var storysectionsjson = '{{ storysections|tojson|safe }}'
+    var storysectionsjson = '{{ newstory|tojson|safe }}'
     let storysectionsarray = JSON.parse(storysectionsjson)
     var currentSlide = 0;
-
-    // Function for next page
+    // Function for next page (loops through)
     function nextSlide() {
-      // // Loop functionality
-      // currentSlide = (currentSlide + 1) % slidesarray.length;
-      currentSlide = currentSlide + 1
-      if (currentSlide>2) {
-        document.getElementById('whatnext').style.visibility = 'visible';
-        document.getElementById('container').style.visibility = 'hidden';
-      }
+      currentSlide = (currentSlide + 1) % slidesarray.length;
       document.getElementById('current-slide').src = slidesarray[currentSlide];
       document.getElementById('userText').textContent = storysectionsarray[currentSlide];
     }
-    // Function for previous page 
+    // Function for previous page (loops through)
     function prevSlide() {
-      // // Loop functionality
-      // currentSlide = (currentSlide - 1 + slidesarray.length) % slidesarray.length;
-      currentSlide = currentSlide - 1
-      if (currentSlide<0) {
-        currentSlide = 0
-      }
+      currentSlide = (currentSlide - 1 + slidesarray.length) % slidesarray.length;
+      console.log(currentSlide)
       document.getElementById('current-slide').src = slidesarray[currentSlide];
       document.getElementById('userText').textContent = storysectionsarray[currentSlide];
     }

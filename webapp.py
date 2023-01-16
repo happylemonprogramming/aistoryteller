@@ -5,25 +5,28 @@ import json
 
 # Web Server Library
 from flask import Flask, render_template, request, url_for
-from forms import CommentForm
+from forms import CommentForm, WhatNext
 import os
 
 # Flask convention and key to avoid CSRF attacks
 app = Flask(__name__)
 app.secret_key = os.environ["flasksecret"]
 
-# Route for AI generated tweet and image generation
+# Route for AI generated story and image generation
 @app.route('/', methods=["GET", "POST"])
 def storyteller():
   # Commenting function
   comments = []
   comment_form = CommentForm(csrf_enabled=False)
+  what_next = WhatNext(csrf_enabled=False)
 
   # Placeholder values prior to content submission
   storysections = 'Pending submission'
   imagepathlist = 'Pending submission'
   firstimage = 'Pending submission'
   nextimageslist=[]
+  newimages = []
+  newstory = []
   i=0
 
   if comment_form.validate_on_submit():
@@ -41,17 +44,63 @@ def storyteller():
       nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
       i=i+1
     firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
+    return render_template('story.html', template_form=what_next, storysections=storysections, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
+    
+    # Add buttons on HTML that listen for press
+    # Make it scary
+    # Make it funny
+    # Make it epic
+    # Once pressed then this function takes that input (scary, funny, epic) and finishes the story that way
+    # App can only do 3 panels before timeout
+    # If button returns scary do scary, elif epic do epic, elif funny funny
+    # The button and "what happens next container will be hidden" until the 3rd slide is past (currentslide > 3)
+    # Then it will be visible and the slideshow will be hidden using javascript
 
+  if what_next.validate_on_submit():
+    # Store tonality input
+    tone = what_next.radio.data
+    # Pull story text data and store to variable
+    with open('storytext.txt', "r") as storytext:
+      storytext = storytext.read()
+    # Pull prompt text data and store to variable
+    with open('prompt.txt', "r") as prompttext:
+      prompt = prompttext.read()
+    # List storytext into sections
+    storysections = storytext.split('\n\n')
+    storysections.pop(0)
+    # Limit next section to 3 scenes
+    if len(storysections) < 6:
+      max = len(storysections)
+    else:
+      max = 6
+    restofstory = storysections[3:max]
+    # Create new story path based on user input
+    from whathappensnext import whathappensnext
+    upnext = whathappensnext(prompt,restofstory, tone)
+    newstory = upnext[0]
+    firststory = newstory[0]
+    newimages = upnext[2]
+    nextimageslist = []
+    i = 3
+    for file in newimages:
+      nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
+      i=i+1
+    firstimage = url_for('static', filename=f'stories/{prompt[:30]}/3.png')
+    return render_template('newstory.html', storysections=storysections, firstimage=firstimage, newimages=newimages, newstory=newstory, firststory=firststory, nextimageslist=nextimageslist)
+   
     # If comment generated then, post video
     # comments.append(prompt)
     # For testing functionality and avoiding charges
     # from delay import delay
     # delay()
 
+    # Route for what happens next to manipulate the rest of the story
     # Story webpage
-    return render_template('story.html', storysections=storysections, firstimage=firstimage, nextimageslist=nextimageslist)
+    
+
   # Home landing page
-  return render_template('index.html', template_comments=comments, template_form=comment_form)
+  return render_template('index.html', template_comments=comments, template_form=comment_form, storysections=storysections, nextimageslist=nextimageslist)
+
 
 # Run app on server (must be at end of code)
 if __name__ == '__main__':
