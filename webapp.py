@@ -1,10 +1,9 @@
 # AI powered webapp that creates storybook videos
 # Other Python files and functions
 from aistorytelling import *
-import json
 
 # Web Server Library
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, url_for
 from forms import CommentForm, WhatNext
 import os
 
@@ -20,7 +19,7 @@ def storyteller():
   comment_form = CommentForm(csrf_enabled=False)
   what_next = WhatNext(csrf_enabled=False)
 
-  # Placeholder values prior to content submission
+  # Variable initialization (placeholder values prior to content submission)
   storysections = 'Pending submission'
   imagepathlist = 'Pending submission'
   firstimage = 'Pending submission'
@@ -29,6 +28,7 @@ def storyteller():
   newstory = []
   i=0
 
+  # Take in User Input via HTTP POST
   if comment_form.validate_on_submit():
     # Add text memo to notification screen of Strike invoice
     prompt = comment_form.comment.data
@@ -46,16 +46,10 @@ def storyteller():
     firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
     return render_template('story.html', template_form=what_next, storysections=storysections, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
     
-    # Add buttons on HTML that listen for press
-    # Make it scary
-    # Make it funny
-    # Make it epic
-    # Once pressed then this function takes that input (scary, funny, epic) and finishes the story that way
-    # App can only do 3 panels before timeout
-    # If button returns scary do scary, elif epic do epic, elif funny funny
-    # The button and "what happens next container will be hidden" until the 3rd slide is past (currentslide > 3)
-    # Then it will be visible and the slideshow will be hidden using javascript
-
+  # MIGHT RUN INTO AN ERROR HERE ON HEROKU NEED TO MONITOR
+  # Make it scary
+  # Make it funny
+  # Make it epic
   if what_next.validate_on_submit():
     # Store tonality input
     tone = what_next.radio.data
@@ -80,23 +74,17 @@ def storyteller():
     newstory = upnext[0]
     firststory = newstory[0]
     newimages = upnext[2]
+    
+    # Variable initialization
     nextimageslist = []
     i = 3
+    # Add image links to nextimageslist variable above
     for file in newimages:
       nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
       i=i+1
+    # Link to first image
     firstimage = url_for('static', filename=f'stories/{prompt[:30]}/3.png')
     return render_template('newstory.html', storysections=storysections, firstimage=firstimage, newimages=newimages, newstory=newstory, firststory=firststory, nextimageslist=nextimageslist)
-   
-    # If comment generated then, post video
-    # comments.append(prompt)
-    # For testing functionality and avoiding charges
-    # from delay import delay
-    # delay()
-
-    # Route for what happens next to manipulate the rest of the story
-    # Story webpage
-    
 
   # Home landing page
   return render_template('index.html', template_comments=comments, template_form=comment_form, storysections=storysections, nextimageslist=nextimageslist)

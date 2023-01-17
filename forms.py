@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, RadioField
+from wtforms import StringField, SubmitField, RadioField
 from wtforms.validators import DataRequired
 
 # Necessary class to have a form on HTML for POST
