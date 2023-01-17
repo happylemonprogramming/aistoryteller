@@ -45,9 +45,11 @@ def storyteller():
 
     # Iterate over images in path to create file URL for Javascript to parse
     for file in imagepathlist:
-      nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
+      # nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
+      nextimageslist.append(url_for('static', filename=f'{textfilepath}/{i}.png'))
       i=i+1
-    firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
+    # firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
+    firstimage = url_for('static', filename=f'{textfilepath}/0.png')
     return render_template('story.html', template_form=what_next, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
     
   # MIGHT RUN INTO AN ERROR HERE ON HEROKU NEED TO MONITOR
@@ -85,10 +87,13 @@ def storyteller():
     i = 3
     # Add image links to nextimageslist variable above
     for file in newimages:
-      nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
+      # nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
+      nextimageslist.append(url_for('static', filename=f'{textfilepath}/{i}.png'))
       i=i+1
     # Link to first image
-    firstimage = url_for('static', filename=f'stories/{prompt[:30]}/3.png')
+    # firstimage = url_for('static', filename=f'stories/{prompt[:30]}/3.png')
+    firstimage = url_for('static', filename=f'{textfilepath}/0.png')
+
     return render_template('newstory.html', storysections=storysections, firstimage=firstimage, newimages=newimages, newstory=newstory, firststory=firststory, nextimageslist=nextimageslist)
 
   # Home landing page
