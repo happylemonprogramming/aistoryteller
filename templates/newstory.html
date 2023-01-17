@@ -30,9 +30,15 @@
     var storysectionsjson = '{{ newstory|tojson|safe }}'
     let storysectionsarray = JSON.parse(storysectionsjson)
     var currentSlide = 0;
+    console.log(slidesjson)
+    console.log(slidesarray)
+    console.log(storysectionsjson)
+    console.log(storysectionsarray)
+
     // Function for next page (loops through)
     function nextSlide() {
       currentSlide = (currentSlide + 1) % slidesarray.length;
+      console.log(currentSlide)
       document.getElementById('current-slide').src = slidesarray[currentSlide];
       document.getElementById('userText').textContent = storysectionsarray[currentSlide];
     }

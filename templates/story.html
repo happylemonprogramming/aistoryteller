@@ -22,7 +22,7 @@
         <h1 id="userText">{{ storysections[0] }}</h1>
       </div>
     </div>
-    <div id="whatnext" style="visibility: visible;">
+    <div id="whatnext" style="visibility: hidden;">
         <!-- Title -->
         <h1>What happens next?</h1>
         <!-- Submission form radio buttons -->
@@ -44,12 +44,16 @@
     var storysectionsjson = '{{ storysections|tojson|safe }}'
     let storysectionsarray = JSON.parse(storysectionsjson)
     var currentSlide = 0;
-
+    console.log(slidesjson)
+    console.log(slidesarray)
+    console.log(storysectionsjson)
+    console.log(storysectionsarray)
     // Function for next page
     function nextSlide() {
       // // Loop functionality
       // currentSlide = (currentSlide + 1) % slidesarray.length;
       currentSlide = currentSlide + 1
+      console.log(currentSlide)
       if (currentSlide>2) {
         document.getElementById('whatnext').style.visibility = 'visible';
         document.getElementById('container').style.visibility = 'hidden';
@@ -62,6 +66,7 @@
       // // Loop functionality
       // currentSlide = (currentSlide - 1 + slidesarray.length) % slidesarray.length;
       currentSlide = currentSlide - 1
+      console.log(currentSlide)
       if (currentSlide<0) {
         currentSlide = 0
       }
