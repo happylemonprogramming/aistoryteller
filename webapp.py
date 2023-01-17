@@ -87,12 +87,12 @@ def storyteller():
     i = 3
     # Add image links to nextimageslist variable above
     for file in newimages:
-      # nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
-      nextimageslist.append(url_for('static', filename=f'{textfilepath}/{i}.png'))
+      nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
+      # nextimageslist.append(url_for('static', filename=f'{textfilepath}/{i}.png'))
       i=i+1
     # Link to first image
-    # firstimage = url_for('static', filename=f'stories/{prompt[:30]}/3.png')
-    firstimage = url_for('static', filename=f'{textfilepath}/0.png')
+    firstimage = url_for('static', filename=f'stories/{prompt[:30]}/3.png')
+    # firstimage = url_for('static', filename=f'{textfilepath}/0.png')
 
     return render_template('newstory.html', storysections=storysections, firstimage=firstimage, newimages=newimages, newstory=newstory, firststory=firststory, nextimageslist=nextimageslist)
 
