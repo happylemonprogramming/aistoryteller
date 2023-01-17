@@ -7,7 +7,7 @@ def aistorytelling(prompt):
     # Set file paths relative to current directory
     workingdir = os.getcwd()
     # Keep for localhost
-    os.chdir(r'C:\Users\clayt\Documents\Programming\aistoryteller')
+    # os.chdir(r'C:\Users\clayt\Documents\Programming\aistoryteller')
     # Keep for Heroku
     print(workingdir)
 
