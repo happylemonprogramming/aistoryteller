@@ -2,7 +2,7 @@
 import os
 
 # Total Webapp logic path
-def aistorytelling(prompt):
+def aistorytelling(prompt, textfilepath):
     # Confirm that directories have been set up, if not then create them
     storypath = f'/app/static/stories/{prompt[:30]}'
     # Host path creation
@@ -15,13 +15,13 @@ def aistorytelling(prompt):
     
 
     # Store prompt for reference later [NEED TO CONFIRM THIS IS REFERENCED]
-    with open('prompt.txt', "w") as prompttext:
+    with open(f'{textfilepath}/storytext.txt', "w") as prompttext:
         prompttext.write(prompt)
     print("Prompt Text Created")
     # Feed to chat to create story
     from storygenerator import textgenerator
     story = textgenerator('Write a short childrens story about '+prompt,)
-    with open('storytext.txt', "w") as storytext:
+    with open(f'{textfilepath}/storytext.txt', "w") as storytext:
         storytext.write(story[0])
     print("Story Text Created")
 

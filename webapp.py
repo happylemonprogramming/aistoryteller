@@ -1,6 +1,7 @@
 # AI powered webapp that creates storybook videos
 # Other Python files and functions
 from aistorytelling import *
+import secrets
 
 # Web Server Library
 from flask import Flask, render_template, url_for
@@ -27,14 +28,15 @@ def storyteller():
   newimages = []
   newstory = []
   i=0
-
+  # Unique identifier folder creation for HTTP GET request to store text files
+  textfilepath = f'/app/static/stories/{secrets.token_hex(16)}'
   # Take in User Input via HTTP POST
   if comment_form.validate_on_submit():
     # Add text memo to notification screen of Strike invoice
     prompt = comment_form.comment.data
 
     # Create story content
-    functionreturn= aistorytelling(prompt)
+    functionreturn= aistorytelling(prompt, textfilepath)
     storysections = functionreturn[0]
     imagepathlist = functionreturn[2]
     # Might be able to use a worker file for the images so that the first image generates and goes to the user without waiting on the rest
@@ -54,10 +56,11 @@ def storyteller():
     # Store tonality input
     tone = what_next.radio.data
     # Pull story text data and store to variable
-    with open('storytext.txt', "r") as storytext:
+    # storypath = f'/app/static/stories/{prompt[:30]}' #issue with referencing path when path is defined earlier, need a different unique foldername (maybe random)
+    with open(f'{textfilepath}/storytext.txt', "r") as storytext:
       storytext = storytext.read()
     # Pull prompt text data and store to variable
-    with open('prompt.txt', "r") as prompttext:
+    with open(f'{textfilepath}/prompt.txt', "r") as prompttext:
       prompt = prompttext.read()
     # List storytext into sections
     storysections = storytext.split('\n\n')
