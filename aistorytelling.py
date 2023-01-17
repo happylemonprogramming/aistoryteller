@@ -6,7 +6,7 @@ def aistorytelling(prompt):
     # Confirm that directories have been set up, if not then create them
     # Set file paths relative to current directory
     workingdir = os.getcwd()
-    # Not sure this is necessary for Heroku
+    # Keep for localhost
     os.chdir(r'C:\Users\clayt\Documents\Programming\aistoryteller')
     # Keep for Heroku
     print(workingdir)
@@ -53,15 +53,9 @@ def aistorytelling(prompt):
         for sections in storysections:
             # Create story images
             from texttoimage import text_to_image
-            # # Gotta be another input that won't leave that weird text, maybe user can select style (radio buttons?)
-            # # Gotta be a more efficient way to do this (I'm calling the API to make a key words list, which costs more money)
-            # keywords = textgenerator('List the key words in order separated by commas in the following text: '+sections)[0]
-            # imageinput = "Cartoon storybook painting about: " + str(prompt) + ', ' + str(keywords[2:])
             imageinput = "Given this context: " + str(prompt) + ', create a cartoon book image about this story' + str(sections)
             storyimagelink = text_to_image(imageinput)[0]
             print("Image Created")
-            # # Alternative image generator
-            # storyimagelink = text_to_image('LEARN THIS CONTEXT:' +str(prompt)+', THEN CREATE AN CHILDRENS BOOK IMAGE ABOUT THIS SECTION OF THE STORY: ' + str(sections))[0]
 
             # Save story image to path
             from saveimagetodir import saveimagetodir
@@ -69,7 +63,7 @@ def aistorytelling(prompt):
             imagepathlist.append(location)
             print('File Saved Here: '+str(location))
 
-            # Stop the app early so we don't go broke
+            # Limit to 3 scenes/panels so that we don't trigger HTTP Timeout
             i+=1
             print('Sucessfully Completed Scenes: '+str(i))
             if i == 3:
