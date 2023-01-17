@@ -39,7 +39,7 @@
   </body>
   <script>
     // Python variable imported as string, need to convert to list (array)
-    var slidesjson = '{{ nextimageslist|tojson|safe }}';
+    var slidesjson = '{{ imagepathlist|tojson|safe }}';
     let slidesarray = JSON.parse(slidesjson)
     var storysectionsjson = '{{ storysections|tojson|safe }}'
     let storysectionsarray = JSON.parse(storysectionsjson)
