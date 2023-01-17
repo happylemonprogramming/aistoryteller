@@ -4,7 +4,6 @@ import os
 # Total Webapp logic path
 def aistorytelling(prompt, textfilepath):
     # Confirm that directories have been set up, if not then create them
-    os.makedirs(textfilepath)
     storypath = f'/app/static/stories/{prompt[:30]}'
     # Host path creation
     if os.path.exists(storypath):
@@ -14,7 +13,6 @@ def aistorytelling(prompt, textfilepath):
         os.makedirs(storypath)
     os.chdir(storypath)
     
-
     # Store prompt for reference later [NEED TO CONFIRM THIS IS REFERENCED]
     with open(f'{textfilepath}/storytext.txt', "w") as prompttext:
         prompttext.write(prompt)

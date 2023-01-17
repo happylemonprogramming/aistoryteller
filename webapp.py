@@ -30,6 +30,8 @@ def storyteller():
   i=0
   # Unique identifier folder creation for HTTP GET request to store text files
   textfilepath = f'/app/static/stories/{secrets.token_hex(16)}'
+  os.makedirs(textfilepath)
+  print('Created Textpath for File Storage: ', textfilepath)
   # Take in User Input via HTTP POST
   if comment_form.validate_on_submit():
     # Add text memo to notification screen of Strike invoice
