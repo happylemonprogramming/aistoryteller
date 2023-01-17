@@ -6,8 +6,7 @@ def aistorytelling(prompt, textfilepath):
     # Confirm that directories have been set up, if not then create them
     # storypath = f'/app/static/stories/{prompt[:30]}'
     storypath = textfilepath
-    # Host path creation
-    os.makedirs(storypath)
+    # Host path change
     os.chdir(storypath)
     
     # Store prompt for reference later [NEED TO CONFIRM THIS IS REFERENCED]
