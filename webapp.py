@@ -44,7 +44,7 @@ def storyteller():
       nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
       i=i+1
     firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
-    return render_template('story.html', template_form=what_next, storysections=storysections, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
+    return render_template('story.html', template_form=what_next, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
     
   # MIGHT RUN INTO AN ERROR HERE ON HEROKU NEED TO MONITOR
   # Make it scary
