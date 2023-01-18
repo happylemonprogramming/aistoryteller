@@ -37,13 +37,11 @@
       </div>
     </div>
   </body>
-  {% if comment in template_comments %}
   <script>
-    document.getElementById('userinput').style.visibility = 'hidden';
-    document.getElementById('container').style.visibility = 'visible';
-  </script>
-  {% endif %}
-  <script>
+    '{% for comment in template_comments %}'
+      document.getElementById('userinput').style.visibility = 'hidden';
+      document.getElementById('container').style.visibility = 'visible';
+    '{% endfor %}'
     // Python variable imported as string, need to convert to list (array)
     var slidesjson = '{{ nextimageslist|tojson|safe }}';
     let slidesarray = JSON.parse(slidesjson)

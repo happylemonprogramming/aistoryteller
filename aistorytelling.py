@@ -31,7 +31,7 @@ def aistorytelling(prompt, textfilepath):
     for section in storysections:
         # Create story images
         from texttoimage import text_to_image
-        imageinput = f"Given this context: {prompt}. Create a storybook image about the following story: {section}"
+        imageinput = f"Given this context: {prompt}. Create an image about the following story: {section}"
         storyimagelink = text_to_image(imageinput)[0]
         print("Image Created by AI")
 
