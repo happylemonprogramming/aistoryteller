@@ -18,10 +18,10 @@
             <!-- Text box -->
             <p class="comments">{{ template_form.comment(size=50) }}</p>
             <!-- Submit button (originally p) -->
-            <button id ="createbutton" class="comments">{{ template_form.submit() }}</button>
-            <button id ="viewbutton" class="comments" onclick = 'visibility()'>Create</button>
+            <p id ="createbutton" class="comments">{{ template_form.submit() }}</p>
         </form>
-    </div>
+        <button id ="viewbutton" class="comments" onclick = 'visibility()'>Waiting on the story</button>
+      </div>
     <div id="container" style="visibility: hidden;">
       <div id="storycontainer">
         <!-- Invisible buttons to create instagram story feel -->
