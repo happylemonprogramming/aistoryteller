@@ -16,7 +16,7 @@ def aistorytelling(prompt, textfilepath):
     # Feed to chat to create story
     from storygenerator import textgenerator
     # story = textgenerator('Write a short childrens story about '+prompt)
-    story = textgenerator('Write a short childrens story that starts with '+prompt,)
+    story = textgenerator('Continue the rest of this short story that starts with '+prompt,)
     with open(f'{textfilepath}/storytext.txt', "w") as storytext:
         storytext.write(story[0])
     print("Story Text Created by AI")
