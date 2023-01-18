@@ -31,7 +31,7 @@ def storyteller():
   # Unique identifier folder creation for HTTP GET request to store text files
   # uniqueid = secrets.token_hex(16)
   # textfilepath = f'/app/static/stories/{uniqueid}'
-  textfilepath = f'/app/static/stories' #Change to 'filestorage' and sync with storypath
+  textfilepath = f'/app/static/stories/testfolder' #Change to 'filestorage' and sync with storypath
   os.makedirs(textfilepath)
   print('Created Textpath for File Storage: ', textfilepath)
   # Take in User Input via HTTP POST
