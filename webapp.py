@@ -16,9 +16,9 @@ app.secret_key = os.environ["flasksecret"]
 @app.route('/', methods=["GET", "POST"])
 def storyteller():
   # Commenting function
-  comments = []
+  # comments = []
   comment_form = CommentForm(csrf_enabled=False)
-  what_next = WhatNext(csrf_enabled=False)
+  # what_next = WhatNext(csrf_enabled=False)
 
   # Variable initialization (placeholder values prior to content submission)
   storysections = 'Pending submission'
@@ -38,6 +38,7 @@ def storyteller():
   if comment_form.validate_on_submit():
     # Add text memo to notification screen of Strike invoice
     prompt = comment_form.comment.data
+    comments = []
 
     # Create story content
     functionreturn= aistorytelling(prompt, textfilepath)
@@ -54,7 +55,8 @@ def storyteller():
     # firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
     # firstimage = url_for('static', filename=f'stories/{uniqueid}/0.png')
     firstimage = url_for('static', filename=f'stories/0.png')
-    return render_template('main.html', template_form=comment_form, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
+    comments.append(prompt)
+    return render_template('main.html', template_form=comment_form, template_comments=comments, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
     # story.html and template_form=what_next replaced
   # MIGHT RUN INTO AN ERROR HERE ON HEROKU NEED TO MONITOR
   # Make it scary
