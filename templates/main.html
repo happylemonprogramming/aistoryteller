@@ -37,47 +37,47 @@
       </div>
     </div>
   </body>
-  <script>
-    '{% for comment in template_comments %}'
+  {% for comment in template_comments %}
+    <script>
       document.getElementById('userinput').style.visibility = 'hidden';
       document.getElementById('container').style.visibility = 'visible';
-    '{% endfor %}'
-    // Python variable imported as string, need to convert to list (array)
-    var slidesjson = '{{ nextimageslist|tojson|safe }}';
-    let slidesarray = JSON.parse(slidesjson)
-    var storysectionsjson = '{{ storysections|tojson|safe }}'
-    let storysectionsarray = JSON.parse(storysectionsjson)
-    var currentSlide = 0;
-    console.log(slidesjson)
-    console.log(slidesarray)
-    console.log(storysectionsjson)
-    console.log(storysectionsarray)
-    // Function for next page
-    function nextSlide() {
-      // // Loop functionality
-      // currentSlide = (currentSlide + 1) % slidesarray.length;
-      currentSlide = currentSlide + 1
-      console.log(currentSlide)
-      if (currentSlide>1) {
-        document.getElementById('userinput').style.visibility = 'hidden';
-        document.getElementById('container').style.visibility = 'visible';
-        document.getElementById('header').textContent = 'What happens next?'
-        document.getElementById('header').textContent = 'You decide:'
+      // Python variable imported as string, need to convert to list (array)
+      var slidesjson = '{{ nextimageslist|tojson|safe }}';
+      let slidesarray = JSON.parse(slidesjson)
+      var storysectionsjson = '{{ storysections|tojson|safe }}'
+      let storysectionsarray = JSON.parse(storysectionsjson)
+      var currentSlide = 0;
+      console.log(slidesjson)
+      console.log(slidesarray)
+      console.log(storysectionsjson)
+      console.log(storysectionsarray)
+      // Function for next page
+      function nextSlide() {
+        // // Loop functionality
+        // currentSlide = (currentSlide + 1) % slidesarray.length;
+        currentSlide = currentSlide + 1
+        console.log(currentSlide)
+        if (currentSlide>1) {
+          document.getElementById('userinput').style.visibility = 'hidden';
+          document.getElementById('container').style.visibility = 'visible';
+          document.getElementById('header').textContent = 'What happens next?'
+          document.getElementById('header').textContent = 'You decide:'
+        }
+        document.getElementById('current-slide').src = slidesarray[currentSlide];
+        document.getElementById('userText').textContent = storysectionsarray[currentSlide];
       }
-      document.getElementById('current-slide').src = slidesarray[currentSlide];
-      document.getElementById('userText').textContent = storysectionsarray[currentSlide];
-    }
-    // Function for previous page 
-    function prevSlide() {
-      // // Loop functionality
-      // currentSlide = (currentSlide - 1 + slidesarray.length) % slidesarray.length;
-      currentSlide = currentSlide - 1
-      console.log(currentSlide)
-      if (currentSlide<0) {
-        currentSlide = 0
+      // Function for previous page 
+      function prevSlide() {
+        // // Loop functionality
+        // currentSlide = (currentSlide - 1 + slidesarray.length) % slidesarray.length;
+        currentSlide = currentSlide - 1
+        console.log(currentSlide)
+        if (currentSlide<0) {
+          currentSlide = 0
+        }
+        document.getElementById('current-slide').src = slidesarray[currentSlide];
+        document.getElementById('userText').textContent = storysectionsarray[currentSlide];
       }
-      document.getElementById('current-slide').src = slidesarray[currentSlide];
-      document.getElementById('userText').textContent = storysectionsarray[currentSlide];
-    }
-  </script>
+    </script>
+  {% endfor %}
 </html>
