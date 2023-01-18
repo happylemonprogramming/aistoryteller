@@ -8,7 +8,6 @@
   </head>
   <body>
     <div id="userinput" class="general" style="visibility: visible;">
-        <!-- Title -->
         <!-- Nuopedia Logo Placeholder -->
         <!-- Submission form text box -->
         <form class='comments' method="POST">
@@ -20,7 +19,7 @@
             <!-- Submit button (originally p) -->
             <p id ="createbutton" class="comments">{{ template_form.submit() }}</p>
         </form>
-        <!-- <button id ="viewbutton" class="comments">Waiting on the story</button> -->
+
       </div>
     <div id="container" style="visibility: hidden;">
       <div id="storycontainer">
@@ -38,19 +37,8 @@
       </div>
     </div>
   </body>
-  <!-- Pending User Input -->
-  <!-- {% if state == 0 %} -->
 
-  <!-- {% endif %} -->
-  <!-- POST Requested, Story In Progress -->
-  <!-- {% if state == 1 %}
-    <script>
-      document.getElementById('viewbutton').onclick = visibility();
-      document.getElementById('viewbutton').textContent = 'Ready to View';
-    </script>
-  {% endif %} -->
-
-  <!-- Story Complete -->
+  <!-- Story complete variable indicator-->
   {% if state == 2 %}
     <script>
       document.getElementById('userinput').style.visibility = 'hidden';
@@ -59,10 +47,6 @@
   {% endif %}
 
     <script>
-      // function visibility() {
-      //   document.getElementById('userinput').style.visibility = 'hidden';
-      //   document.getElementById('container').style.visibility = 'visible';
-      // }
       // Python variable imported as string, need to convert to list (array)
       var slidesjson = '{{ nextimageslist|tojson|safe }}';
       let slidesarray = JSON.parse(slidesjson)
@@ -76,7 +60,6 @@
       // Function for next page
       function nextSlide() {
         // // Loop functionality
-        // currentSlide = (currentSlide + 1) % slidesarray.length;
         currentSlide = currentSlide + 1
         console.log(currentSlide)
         if (currentSlide>1) {
@@ -90,7 +73,6 @@
       // Function for previous page 
       function prevSlide() {
         // // Loop functionality
-        // currentSlide = (currentSlide - 1 + slidesarray.length) % slidesarray.length;
         currentSlide = currentSlide - 1
         console.log(currentSlide)
         if (currentSlide<0) {
@@ -100,5 +82,4 @@
         document.getElementById('userText').textContent = storysectionsarray[currentSlide];
       }
     </script>
-
 </html>

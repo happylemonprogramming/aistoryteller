@@ -16,7 +16,7 @@ def aistorytelling(prompt, textfilepath):
     # Feed to chat to create story
     from storygenerator import textgenerator
     # story = textgenerator('Write a short childrens story about '+prompt)
-    story = textgenerator('Finish the rest of this story: once upon a time '+prompt,)
+    story = textgenerator('Write a short childrens story that starts with '+prompt,)
     with open(f'{textfilepath}/storytext.txt', "w") as storytext:
         storytext.write(story[0])
     print("Story Text Created by AI")
@@ -45,7 +45,7 @@ def aistorytelling(prompt, textfilepath):
         # Limit to 3 scenes/panels so that we don't trigger HTTP Timeout
         i+=1
         print('Sucessfully Completed Scenes: '+str(i))
-        if i == 2:
+        if i == 3:
             break   
 
     return storysections, storypath, imagepathlist
