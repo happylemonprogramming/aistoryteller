@@ -18,8 +18,8 @@
             <!-- Text box -->
             <p class="comments">{{ template_form.comment(size=50) }}</p>
             <!-- Submit button (originally p) -->
-            <button id ="createbutton" class="comments">{{ template_form.submit() }}</button>
-            <button id ="viewbutton" class="comments" onclick="visibility()">Loading...</button>
+            <!-- <button id ="createbutton" class="comments">{{ template_form.submit() }}</button> -->
+            <button id ="viewbutton" class="comments">Create</button>
         </form>
     </div>
     <div id="container" style="visibility: hidden;">
@@ -40,6 +40,7 @@
   </body>
   {% for comment in template_comments %}
     <script>
+      document.getElementById('viewbutton').onclick = visibility();
       document.getElementById('viewbutton').textContent = 'Ready to View';
     </script>
   {% endfor %}
@@ -69,6 +70,7 @@
         currentSlide = currentSlide + 1
         console.log(currentSlide)
         if (currentSlide>1) {
+          currentSlide = 1
           document.getElementById('userinput').style.visibility = 'hidden';
           document.getElementById('container').style.visibility = 'visible';
           document.getElementById('header').textContent = 'What happens next?'
