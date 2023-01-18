@@ -29,8 +29,9 @@ def storyteller():
   newstory = []
   i=0
   # Unique identifier folder creation for HTTP GET request to store text files
-  uniqueid = secrets.token_hex(16)
-  textfilepath = f'/app/static/stories/{uniqueid}'
+  # uniqueid = secrets.token_hex(16)
+  # textfilepath = f'/app/static/stories/{uniqueid}'
+  textfilepath = f'/app/static/stories' #Change to 'filestorage' and sync with storypath
   os.makedirs(textfilepath)
   print('Created Textpath for File Storage: ', textfilepath)
   # Take in User Input via HTTP POST
@@ -47,10 +48,12 @@ def storyteller():
     # Iterate over images in path to create file URL for Javascript to parse
     for file in imagepathlist:
       # nextimageslist.append(url_for('static', filename=f'stories/{prompt[:30]}/{i}.png'))
-      nextimageslist.append(url_for('static', filename=f'stories/{uniqueid}/{i}.png'))
+      # nextimageslist.append(url_for('static', filename=f'stories/{uniqueid}/{i}.png'))
+      nextimageslist.append(url_for('static', filename=f'stories/{i}.png'))
       i=i+1
     # firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
-    firstimage = url_for('static', filename=f'stories/{uniqueid}/0.png')
+    # firstimage = url_for('static', filename=f'stories/{uniqueid}/0.png')
+    firstimage = url_for('static', filename=f'stories/0.png')
     return render_template('story.html', template_form=what_next, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
     
   # MIGHT RUN INTO AN ERROR HERE ON HEROKU NEED TO MONITOR
@@ -88,11 +91,13 @@ def storyteller():
     i = 3
     # Add image links to nextimageslist variable above
     for file in newimages:
-      nextimageslist.append(url_for('static', filename=f'stories/{uniqueid}/{i}.png'))
+      nextimageslist.append(url_for('static', filename=f'stories/{i}.png'))
+      # nextimageslist.append(url_for('static', filename=f'stories/{uniqueid}/{i}.png'))
       # nextimageslist.append(url_for('static', filename=f'{textfilepath}/{i}.png'))
       i=i+1
     # Link to first image
-    firstimage = url_for('static', filename=f'stories/{uniqueid}/3.png')
+    firstimage = url_for('static', filename=f'stories/3.png')
+    # firstimage = url_for('static', filename=f'stories/{uniqueid}/3.png')
     # firstimage = url_for('static', filename=f'{textfilepath}/0.png')
 
     return render_template('newstory.html', storysections=storysections, firstimage=firstimage, newimages=newimages, newstory=newstory, firststory=firststory, nextimageslist=nextimageslist)
