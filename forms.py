@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired
 
 # Necessary class to have a form on HTML for POST
 class CommentForm(FlaskForm):
-  comment =  StringField('''Write a short Children's Story about...''', validators=[DataRequired()])
+  comment =  StringField('''Once upon a time...''', validators=[DataRequired()])
   submit = SubmitField("Create")
 
 class WhatNext(FlaskForm):

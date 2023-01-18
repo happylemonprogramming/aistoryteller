@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Link to Roboto font for css -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
+    <!-- Link to css file for styling -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <div id="userinput" class="general" style="visibility: visible;">
+        <!-- Title -->
+        <h1 id="header">Nuopedia Logo Placeholder</h1>
+        <!-- Submission form text box -->
+        <form class='comments' method="POST">
+            {{ template_form.hidden_tag() }}
+            <!-- Write a story... text -->
+            <h3 id = "subtitle" class="comments">{{ template_form.comment.label }}</h3>
+            <!-- Text box -->
+            <p class="comments">{{ template_form.comment(size=50) }}</p>
+            <!-- Submit button -->
+            <p class="comments">{{ template_form.submit() }}</p>
+        </form>
+    </div>
+    <div id="container" style="visibility: hidden;">
+        <div id="storycontainer">
+          <!-- Invisible buttons to create instagram story feel -->
+          <div id="buttoncontainer">
+            <button id="prev-btn" onclick="prevSlide()"></button>
+            <button id="next-btn" onclick="nextSlide()"></button>
+          </div>
+          <!-- Story image displayed after submission -->
+            <img id="current-slide" src="{{ firstimage }}" width="100%" height="auto">
+        </div>
+        <!-- Text displayed below image after submission -->
+        <div id="storytext">
+          <h1 id="userText">{{ storysections[0] }}</h1>
+        </div>
+      </div>
+  </body>
+  <script>
+    // Python variable imported as string, need to convert to list (array)
+    var slidesjson = '{{ nextimageslist|tojson|safe }}';
+    let slidesarray = JSON.parse(slidesjson)
+    var storysectionsjson = '{{ storysections|tojson|safe }}'
+    let storysectionsarray = JSON.parse(storysectionsjson)
+    var currentSlide = 0;
+    console.log(slidesjson)
+    console.log(slidesarray)
+    console.log(storysectionsjson)
+    console.log(storysectionsarray)
+    // Function for next page
+    function nextSlide() {
+      // // Loop functionality
+      // currentSlide = (currentSlide + 1) % slidesarray.length;
+      currentSlide = currentSlide + 1
+      console.log(currentSlide)
+      if (currentSlide>2) {
+        document.getElementById('userinput').style.visibility = 'hidden';
+        document.getElementById('container').style.visibility = 'visible';
+        document.getElementById('header').textContent = 'What happens next?'
+        document.getElementById('header').textContent = 'You decide:'
+      }
+      document.getElementById('current-slide').src = slidesarray[currentSlide];
+      document.getElementById('userText').textContent = storysectionsarray[currentSlide];
+    }
+    // Function for previous page 
+    function prevSlide() {
+      // // Loop functionality
+      // currentSlide = (currentSlide - 1 + slidesarray.length) % slidesarray.length;
+      currentSlide = currentSlide - 1
+      console.log(currentSlide)
+      if (currentSlide<0) {
+        currentSlide = 0
+      }
+      document.getElementById('current-slide').src = slidesarray[currentSlide];
+      document.getElementById('userText').textContent = storysectionsarray[currentSlide];
+    }
+  </script>
+</html>
