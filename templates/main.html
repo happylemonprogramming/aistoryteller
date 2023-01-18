@@ -21,29 +21,28 @@
             <p class="comments">{{ template_form.submit() }}</p>
         </form>
     </div>
-    {% for comment in template_comments %}
-    <script>
-      document.getElementById('userinput').style.visibility = 'hidden';
-      document.getElementById('container').style.visibility = 'visible';
-    </script>
     <div id="container" style="visibility: hidden;">
-        <div id="storycontainer">
-          <!-- Invisible buttons to create instagram story feel -->
-          <div id="buttoncontainer">
-            <button id="prev-btn" onclick="prevSlide()"></button>
-            <button id="next-btn" onclick="nextSlide()"></button>
-          </div>
-          <!-- Story image displayed after submission -->
-            <img id="current-slide" src="{{ firstimage }}" width="100%" height="auto">
+      <div id="storycontainer">
+        <!-- Invisible buttons to create instagram story feel -->
+        <div id="buttoncontainer">
+          <button id="prev-btn" onclick="prevSlide()"></button>
+          <button id="next-btn" onclick="nextSlide()"></button>
         </div>
-        <!-- Text displayed below image after submission -->
-        <div id="storytext">
-          <h1 id="userText">{{ storysections[0] }}</h1>
-        </div>
+        <!-- Story image displayed after submission -->
+          <img id="current-slide" src="{{ firstimage }}" width="100%" height="auto">
       </div>
-    {% endfor %}
-
+      <!-- Text displayed below image after submission -->
+      <div id="storytext">
+        <h1 id="userText">{{ storysections[0] }}</h1>
+      </div>
+    </div>
   </body>
+  {% for comment in template_comments %}
+  <script>
+    document.getElementById('userinput').style.visibility = 'hidden';
+    document.getElementById('container').style.visibility = 'visible';
+  </script>
+  {% endfor %}
   <script>
     // Python variable imported as string, need to convert to list (array)
     var slidesjson = '{{ nextimageslist|tojson|safe }}';
