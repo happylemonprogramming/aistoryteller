@@ -28,6 +28,7 @@ def storyteller():
   comments = []
   newstory = []
   i=0
+  state = 0
   # Unique identifier folder creation for HTTP GET request to store text files
   # uniqueid = secrets.token_hex(16)
   # textfilepath = f'/app/static/stories/{uniqueid}'
@@ -39,7 +40,7 @@ def storyteller():
     # Add text memo to notification screen of Strike invoice
     prompt = comment_form.comment.data
     comments = []
-
+    state = 1
     # Create story content
     functionreturn= aistorytelling(prompt, textfilepath)
     storysections = functionreturn[0]
@@ -56,7 +57,8 @@ def storyteller():
     # firstimage = url_for('static', filename=f'stories/{uniqueid}/0.png')
     firstimage = url_for('static', filename=f'stories/0.png')
     comments.append(prompt)
-    return render_template('main.html', template_form=comment_form, template_comments=comments, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
+    state = 2
+    return render_template('main.html', template_form=comment_form, template_comments=comments, state=state, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
     # story.html and template_form=what_next replaced
   # MIGHT RUN INTO AN ERROR HERE ON HEROKU NEED TO MONITOR
   # Make it scary
@@ -105,7 +107,7 @@ def storyteller():
   #   return render_template('newstory.html', storysections=storysections, firstimage=firstimage, newimages=newimages, newstory=newstory, firststory=firststory, nextimageslist=nextimageslist)
 
   # Home landing page
-  return render_template('main.html', template_comments=comments, template_form=comment_form, storysections=storysections, nextimageslist=nextimageslist)
+  return render_template('main.html', template_comments=comments, template_form=comment_form, state=state, storysections=storysections, nextimageslist=nextimageslist)
 # replaced index.html with main
 
 # Run app on server (must be at end of code)
