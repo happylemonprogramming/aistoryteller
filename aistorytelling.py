@@ -44,7 +44,7 @@ def aistorytelling(prompt, textfilepath):
         # Limit to 3 scenes/panels so that we don't trigger HTTP Timeout
         i+=1
         print('Sucessfully Completed Scenes: '+str(i))
-        if i == 3:
+        if i == 2:
             break   
 
     return storysections, storypath, imagepathlist
