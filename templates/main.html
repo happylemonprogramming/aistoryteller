@@ -65,8 +65,9 @@
         currentSlide = currentSlide + 1
         console.log(currentSlide)
         if (currentSlide>1) {
-          document.getElementById('userinput').style.visibility = 'hidden';
-          document.getElementById('container').style.visibility = 'visible';
+          currentSlide = 1
+          document.getElementById('userinput').style.visibility = 'visible';
+          document.getElementById('container').style.visibility = 'hidden';
           document.getElementById('header').textContent = 'What happens next?'
           document.getElementById('header').textContent = 'You decide:'
         }
