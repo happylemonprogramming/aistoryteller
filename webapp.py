@@ -54,7 +54,7 @@ def storyteller():
     # firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
     # firstimage = url_for('static', filename=f'stories/{uniqueid}/0.png')
     firstimage = url_for('static', filename=f'stories/0.png')
-    return render_template('main.html', storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
+    return render_template('main.html', template_form=comment_form, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
     # story.html and template_form=what_next replaced
   # MIGHT RUN INTO AN ERROR HERE ON HEROKU NEED TO MONITOR
   # Make it scary
