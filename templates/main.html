@@ -18,7 +18,8 @@
             <!-- Text box -->
             <p class="comments">{{ template_form.comment(size=50) }}</p>
             <!-- Submit button (originally p) -->
-            <button id ="createbutton" class="comments" onclick="visibility()">{{ template_form.submit() }}</button>
+            <button id ="createbutton" class="comments">{{ template_form.submit() }}</button>
+            <button id ="viewbutton" class="comments" onclick="visibility()">Loading...</button>
         </form>
     </div>
     <div id="container" style="visibility: hidden;">
@@ -37,9 +38,17 @@
       </div>
     </div>
   </body>
-  <!-- {% for comment in template_comments %} -->
+  {% for comment in template_comments %}
     <script>
+      document.getElementById('userinput').textContent = 'Ready to View';
+    </script>
+  {% endfor %}
+    <script>
+      var clickorno = 'n'
+      console.log(clickorno)
       function visibility() {
+        var clickorno = 'y'
+        console.log(clickorno)
         document.getElementById('userinput').style.visibility = 'hidden';
         document.getElementById('container').style.visibility = 'visible';
       }
@@ -81,5 +90,5 @@
         document.getElementById('userText').textContent = storysectionsarray[currentSlide];
       }
     </script>
-  <!-- {% endfor %} -->
+
 </html>
