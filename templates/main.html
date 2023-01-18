@@ -17,8 +17,8 @@
             <h3 id = "subtitle" class="comments">{{ template_form.comment.label }}</h3>
             <!-- Text box -->
             <p class="comments">{{ template_form.comment(size=50) }}</p>
-            <!-- Submit button -->
-            <p class="comments">{{ template_form.submit() }}</p>
+            <!-- Submit button (originally p) -->
+            <button id ="createbutton" class="comments" onclick="visibility()">{{ template_form.submit() }}</button>
         </form>
     </div>
     <div id="container" style="visibility: hidden;">
@@ -37,10 +37,12 @@
       </div>
     </div>
   </body>
-  {% for comment in template_comments %}
+  <!-- {% for comment in template_comments %} -->
     <script>
-      document.getElementById('userinput').style.visibility = 'hidden';
-      document.getElementById('container').style.visibility = 'visible';
+      function visibility() {
+        document.getElementById('userinput').style.visibility = 'hidden';
+        document.getElementById('container').style.visibility = 'visible';
+      }
       // Python variable imported as string, need to convert to list (array)
       var slidesjson = '{{ nextimageslist|tojson|safe }}';
       let slidesarray = JSON.parse(slidesjson)
@@ -79,5 +81,5 @@
         document.getElementById('userText').textContent = storysectionsarray[currentSlide];
       }
     </script>
-  {% endfor %}
+  <!-- {% endfor %} -->
 </html>
