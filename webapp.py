@@ -54,57 +54,57 @@ def storyteller():
     # firstimage = url_for('static', filename=f'stories/{prompt[:30]}/0.png')
     # firstimage = url_for('static', filename=f'stories/{uniqueid}/0.png')
     firstimage = url_for('static', filename=f'stories/0.png')
-    return render_template('story.html', template_form=what_next, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
-    
+    return render_template('main.html', template_form=what_next, storysections=storysections, imagepathlist=imagepathlist, firstimage=firstimage, nextimageslist=nextimageslist, newimages=newimages, newstory=newstory)
+    # story.html replaced
   # MIGHT RUN INTO AN ERROR HERE ON HEROKU NEED TO MONITOR
   # Make it scary
   # Make it funny
   # Make it epic
-  if what_next.validate_on_submit():
-    # Store tonality input
-    tone = what_next.radio.data
-    # Pull story text data and store to variable
-    # storypath = f'/app/static/stories/{prompt[:30]}' #issue with referencing path when path is defined earlier, need a different unique foldername (maybe random)
-    with open(f'{textfilepath}/storytext.txt', "r") as storytext:
-      storytext = storytext.read()
-    # Pull prompt text data and store to variable
-    with open(f'{textfilepath}/prompt.txt', "r") as prompttext:
-      prompt = prompttext.read()
-    # List storytext into sections
-    storysections = storytext.split('\n\n')
-    storysections.pop(0)
-    # Limit next section to 3 scenes
-    if len(storysections) < 6:
-      max = len(storysections)
-    else:
-      max = 6
-    restofstory = storysections[3:max]
-    # Create new story path based on user input
-    from whathappensnext import whathappensnext
-    upnext = whathappensnext(prompt,restofstory, tone)
-    newstory = upnext[0]
-    firststory = newstory[0]
-    newimages = upnext[2]
+  # if what_next.validate_on_submit():
+  #   # Store tonality input
+  #   tone = what_next.radio.data
+  #   # Pull story text data and store to variable
+  #   # storypath = f'/app/static/stories/{prompt[:30]}' #issue with referencing path when path is defined earlier, need a different unique foldername (maybe random)
+  #   with open(f'{textfilepath}/storytext.txt', "r") as storytext:
+  #     storytext = storytext.read()
+  #   # Pull prompt text data and store to variable
+  #   with open(f'{textfilepath}/prompt.txt', "r") as prompttext:
+  #     prompt = prompttext.read()
+  #   # List storytext into sections
+  #   storysections = storytext.split('\n\n')
+  #   storysections.pop(0)
+  #   # Limit next section to 3 scenes
+  #   if len(storysections) < 6:
+  #     max = len(storysections)
+  #   else:
+  #     max = 6
+  #   restofstory = storysections[3:max]
+  #   # Create new story path based on user input
+  #   from whathappensnext import whathappensnext
+  #   upnext = whathappensnext(prompt,restofstory, tone)
+  #   newstory = upnext[0]
+  #   firststory = newstory[0]
+  #   newimages = upnext[2]
     
-    # Variable initialization
-    nextimageslist = []
-    i = 3
-    # Add image links to nextimageslist variable above
-    for file in newimages:
-      nextimageslist.append(url_for('static', filename=f'stories/{i}.png'))
-      # nextimageslist.append(url_for('static', filename=f'stories/{uniqueid}/{i}.png'))
-      # nextimageslist.append(url_for('static', filename=f'{textfilepath}/{i}.png'))
-      i=i+1
-    # Link to first image
-    firstimage = url_for('static', filename=f'stories/3.png')
-    # firstimage = url_for('static', filename=f'stories/{uniqueid}/3.png')
-    # firstimage = url_for('static', filename=f'{textfilepath}/0.png')
+  #   # Variable initialization
+  #   nextimageslist = []
+  #   i = 3
+  #   # Add image links to nextimageslist variable above
+  #   for file in newimages:
+  #     nextimageslist.append(url_for('static', filename=f'stories/{i}.png'))
+  #     # nextimageslist.append(url_for('static', filename=f'stories/{uniqueid}/{i}.png'))
+  #     # nextimageslist.append(url_for('static', filename=f'{textfilepath}/{i}.png'))
+  #     i=i+1
+  #   # Link to first image
+  #   firstimage = url_for('static', filename=f'stories/3.png')
+  #   # firstimage = url_for('static', filename=f'stories/{uniqueid}/3.png')
+  #   # firstimage = url_for('static', filename=f'{textfilepath}/0.png')
 
-    return render_template('newstory.html', storysections=storysections, firstimage=firstimage, newimages=newimages, newstory=newstory, firststory=firststory, nextimageslist=nextimageslist)
+  #   return render_template('newstory.html', storysections=storysections, firstimage=firstimage, newimages=newimages, newstory=newstory, firststory=firststory, nextimageslist=nextimageslist)
 
   # Home landing page
-  return render_template('index.html', template_comments=comments, template_form=comment_form, storysections=storysections, nextimageslist=nextimageslist)
-
+  return render_template('main.html', template_comments=comments, template_form=comment_form, storysections=storysections, nextimageslist=nextimageslist)
+# replaced index.html with main
 
 # Run app on server (must be at end of code)
 if __name__ == '__main__':
