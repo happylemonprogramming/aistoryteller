@@ -15,7 +15,8 @@ def aistorytelling(prompt, textfilepath):
     print("Prompt Text Created")
     # Feed to chat to create story
     from storygenerator import textgenerator
-    story = textgenerator('Write a short childrens story about '+prompt,)
+    # story = textgenerator('Write a short childrens story about '+prompt)
+    story = textgenerator('Finish the rest of this story: once upon a time '+prompt,)
     with open(f'{textfilepath}/storytext.txt', "w") as storytext:
         storytext.write(story[0])
     print("Story Text Created by AI")
@@ -31,7 +32,7 @@ def aistorytelling(prompt, textfilepath):
     for section in storysections:
         # Create story images
         from texttoimage import text_to_image
-        imageinput = f"Given this context: {prompt}. Create an image about the following story: {section}"
+        imageinput = f"Given this context: {prompt}. Create a cartoon storybook image about the following story: {section}"
         storyimagelink = text_to_image(imageinput)[0]
         print("Image Created by AI")
 

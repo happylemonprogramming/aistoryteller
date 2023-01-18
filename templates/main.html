@@ -9,12 +9,12 @@
   <body>
     <div id="userinput" class="general" style="visibility: visible;">
         <!-- Title -->
-        <h1 id="header">Nuopedia Logo Placeholder</h1>
+        <!-- Nuopedia Logo Placeholder -->
         <!-- Submission form text box -->
         <form class='comments' method="POST">
             {{ template_form.hidden_tag() }}
             <!-- Write a story... text -->
-            <h3 id = "subtitle" class="comments">{{ template_form.comment.label }}</h3>
+            <h1 id = "subtitle" class="comments">{{ template_form.comment.label }}</h1>
             <!-- Text box -->
             <p class="comments">{{ template_form.comment(size=50) }}</p>
             <!-- Submit button (originally p) -->
@@ -82,8 +82,7 @@
         if (currentSlide>1) {
           document.getElementById('userinput').style.visibility = 'visible';
           document.getElementById('container').style.visibility = 'hidden';
-          document.getElementById('header').textContent = 'What happens next?'
-          document.getElementById('subtitle').textContent = 'You decide:'
+          document.getElementById('subtitle').textContent = 'What happens next?'
         }
         document.getElementById('current-slide').src = slidesarray[currentSlide];
         document.getElementById('userText').textContent = storysectionsarray[currentSlide];
