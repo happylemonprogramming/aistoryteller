@@ -16,7 +16,6 @@ app.secret_key = os.environ["flasksecret"]
 @app.route('/', methods=["GET", "POST"])
 def storyteller():
   # Commenting function
-  # comments = []
   comment_form = CommentForm(csrf_enabled=False)
   # what_next = WhatNext(csrf_enabled=False)
 
@@ -26,6 +25,7 @@ def storyteller():
   firstimage = 'Pending submission'
   nextimageslist=[]
   newimages = []
+  comments = []
   newstory = []
   i=0
   # Unique identifier folder creation for HTTP GET request to store text files
