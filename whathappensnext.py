@@ -5,7 +5,7 @@ import os
 def whathappensnext(prompt,restofstory, tone):
     # Confirm that directories have been set up, if not then create them
     # storypath = f'/app/static/stories/{prompt[:30]}'
-    storypath = f'/app/static/stories/testfolder'
+    storypath = f'/app/static/stories'
     # Host path creation
     if os.path.exists(storypath):
         print('Story Path Exists')
