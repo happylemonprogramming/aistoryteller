@@ -21,6 +21,7 @@
         </form>
 
       </div>
+    <!-- Story container -->
     <div id="container" style="visibility: hidden;">
       <div id="storycontainer">
         <!-- Invisible buttons to create instagram story feel -->
@@ -53,15 +54,11 @@
       var storysectionsjson = '{{ storysections|tojson|safe }}'
       let storysectionsarray = JSON.parse(storysectionsjson)
       var currentSlide = 0;
-      console.log(slidesjson)
-      console.log(slidesarray)
-      console.log(storysectionsjson)
-      console.log(storysectionsarray)
+
       // Function for next page
       function nextSlide() {
-        // // Loop functionality
         currentSlide = currentSlide + 1
-        console.log(currentSlide)
+        // Function to loop back to user input
         if (currentSlide>2) {
           document.getElementById('userinput').style.visibility = 'visible';
           document.getElementById('container').style.visibility = 'hidden';
@@ -70,11 +67,11 @@
         document.getElementById('current-slide').src = slidesarray[currentSlide];
         document.getElementById('userText').textContent = storysectionsarray[currentSlide];
       }
+
       // Function for previous page 
       function prevSlide() {
-        // // Loop functionality
         currentSlide = currentSlide - 1
-        console.log(currentSlide)
+        // Can't peek at the last slide going backwards
         if (currentSlide<0) {
           currentSlide = 0
         }

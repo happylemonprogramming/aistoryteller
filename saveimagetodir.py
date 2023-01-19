@@ -2,10 +2,10 @@ import requests
 from PIL import Image
 
 def saveimagetodir(url,path,name):
-    # url = 'https://hyperlink.com'
+    # Locating image on web
     img = Image.open(requests.get(url, stream = True).raw)
-    # img.save(str(path)+str(name)+'.png')
+    # Saving file on server
     img.save(f'{path}/{name}.png')
-    # file = str(path)+str(name)+'.png'
+    # File path and name
     file = f'{path}/{name}.png'
     return url, file

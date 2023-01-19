@@ -2,22 +2,22 @@
 import os
 
 # Total Webapp logic path
-def aistorytelling(prompt, textfilepath):
+def aistorytelling(prompt, filepath):
     # Confirm that directories have been set up, if not then create them
-    # storypath = f'/app/static/stories/{prompt[:30]}'
-    storypath = textfilepath
+    storypath = filepath
     # Host path change
     os.chdir(storypath)
     
     # Store prompt for reference later [NEED TO CONFIRM THIS IS REFERENCED]
-    with open(f'{textfilepath}/prompttext.txt', "w") as prompttext:
+    with open(f'{filepath}/prompttext.txt', "w") as prompttext:
         prompttext.write(prompt)
     print("Prompt Text Created")
-    # Feed to chat to create story
+    # [AI INTERACTION] Feed to chat to create story
     from storygenerator import textgenerator
-    # story = textgenerator('Write a short childrens story about '+prompt)
     story = textgenerator('Continue the rest of this short story that starts with '+prompt,)
-    with open(f'{textfilepath}/storytext.txt', "w") as storytext:
+
+    # Save story as text file
+    with open(f'{filepath}/storytext.txt', "w") as storytext:
         storytext.write(story[0])
     print("Story Text Created by AI")
 
@@ -30,7 +30,7 @@ def aistorytelling(prompt, textfilepath):
 
     # Create image for each section of the story
     for section in storysections:
-        # Create story images
+        # [AI INTERACTION] Create story images
         from texttoimage import text_to_image
         imageinput = f"Given this context: {prompt}. Create a cartoon storybook image about the following story: {section}"
         storyimagelink = text_to_image(imageinput)[0]
